@@ -1,0 +1,80 @@
+$colorRed: #FF5353;
+$colorYellow: #FFC429;
+$colorBlue: #5980C1;
+$colorWhite: #FBE9B7;
+
+@mixin size($h,$w){
+    height: $h;
+    width: $w;
+}
+
+@mixin center(){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin blockColor($color){
+    box-shadow: 0px 0px 35px rgba($color,0.2);
+    background-color: transparent;
+    border: solid 1px lighten($color,3);
+    &:hover {
+        background-color: rgba($color,0.2);
+        box-shadow: 0px 0px 35px rgba($color,0.5);
+    }
+    &:active,&.active {
+        background-color: $color;
+        box-shadow: 0px 0px 35px $color;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,body {
+    @include center;
+    @include size(100%,100%);
+    background-color: #232526;
+    color: #fff;
+
+}
+
+.info {
+    position: absolute;
+    left: 40px;
+    top: 40px;
+}
+
+.blocks {
+    color: #fff;
+    .row {
+        display: flex;
+    }
+    .block {
+        @include center;
+        @include size(100px,100px);
+        cursor: pointer;
+        border: solid 1px #fff;
+        margin: 12px;
+        transition: 0.5s;
+        &:active,&.active {
+            transition: 0s;
+            background-color: #fff;
+        }
+    }
+    .block1 {
+        @include blockColor($colorRed);
+    }
+    .block2 {
+        @include blockColor($colorYellow);
+    }
+    .block3 {
+        @include blockColor($colorBlue);
+    }
+    .block4 {
+        @include blockColor($colorWhite);
+    }
+}
