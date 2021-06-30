@@ -3,6 +3,7 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 html, body {
@@ -34,6 +35,11 @@ html:active, body:active {
   position: absolute;
   left: 40px;
   top: 40px;
+}
+
+.info h1 {
+  letter-spacing: 6px;
+  line-height: 50px;
 }
 
 .info .status {
