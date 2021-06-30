@@ -39,6 +39,12 @@ html,body {
     @include size(100%,100%);
     background-color: #232526;
     color: #fff;
+    border: solid 5px rgba(white,0.05);
+    transition: 0.5s;    
+    &:active {
+        transition: 0s;
+        border: solid 2px rgba(white,0.1);
+    }
 
 }
 
@@ -46,6 +52,10 @@ html,body {
     position: absolute;
     left: 40px;
     top: 40px;
+    .status {
+        margin-top: 10px;
+        color: $colorRed;
+    }
 }
 
 .blocks {
@@ -76,5 +86,21 @@ html,body {
     }
     .block4 {
         @include blockColor($colorWhite);
+    }
+}
+
+
+.inputStatus {
+    margin-top: 10px;
+    .circle {
+        @include size(6px,6px);
+        display: inline-block;
+        opacity: 0.3;
+        margin: 5px;
+        border-radius: 50%;
+        background-color: white;
+        &.correct {
+            opacity: 1;
+        }
     }
 }

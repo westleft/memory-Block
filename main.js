@@ -1,3 +1,6 @@
+let status = document.querySelector('.status')
+let inputStatus = document.querySelector('.inputStatus')
+
 let blockData = [
     { selector: document.querySelector('.block1'), name: '1', pitch: '1' },
     { selector: document.querySelector('.block2'), name: '2', pitch: '2' },
@@ -11,10 +14,16 @@ let soundSetData = [
 ]
 
 let levelDatas = [
-    '1324',
-    '1232114143',
-    '13214443214321'
+    '1234',
+    '13221',
+    '123433',
+    '1343214',
+    '1334233144',
+    '1312243421131',
+    '12213413441214311243'
 ]
+
+
 
 let Blocks = function (blockAssign, setAssign) {
     this.allOn = false
@@ -65,7 +74,9 @@ Blocks.prototype.turnAllOff = function () {
 
 //音樂檔
 Blocks.prototype.getAudioObject = function (pitch) {
-    return new Audio("https://awiclass.monoame.com/pianosound/set/" + pitch + ".wav")
+    let audio =  new Audio("https://awiclass.monoame.com/pianosound/set/"+ pitch+".wav")
+    audio.setAttribute("preload","auto")
+    return audio
 }
 
 Blocks.prototype.playSet = function (type) {
@@ -78,16 +89,28 @@ Blocks.prototype.playSet = function (type) {
 
 let Game = function () {
     this.block = blocks = new Blocks(blockData, soundSetData)
-    this.level = levelDatas
+    this.levels = levelDatas
     this.currentLevel = 0
     this.playInterval = 400
     this.mode = 'waiting'
+}
+
+Game.prototype.startLevel = function () {
+    this.showMessage('level' + this.currentLevel)
+    let levelData = this.levels[this.currentLevel]
+    this.startGame(levelData)
+}
+
+Game.prototype.showMessage = function (mes) {
+    console.log(mes)
+    status.textContent = mes
 }
 
 Game.prototype.startGame = function (answer) {
     this.node = 'gamePlay'
     this.answer = answer
 
+    this.showStatus('')
     let notes = this.answer.split('')
     this.timer = setInterval(() => {
         let char = notes.shift()
@@ -96,7 +119,6 @@ Game.prototype.startGame = function (answer) {
             this.startUserInput()
             clearInterval(this.timer)
         }
-        console.log(char);
 
     }, this.playInterval)
 
@@ -115,21 +137,64 @@ Game.prototype.userSendInput = function (inputChar) {
     if (this.mode === 'userInput') {
         let tempString = this.userInput + inputChar
         this.playNote(inputChar)
+        this.showStatus(tempString)
+        
         if (this.answer.indexOf(tempString) === 0) {
-            console.log('nice');
             if (this.answer === tempString) {
-                console.log('correct');
+                this.showMessage('Correct')
+                this.currentLevel += 1
+                this.mode = 'waiting'
+
+                setTimeout(() => {
+                    this.startLevel()
+                }, 1000)
             }
+        } else {
+            this.showMessage('Wrong')
+            // this.currentLevel = 0
+            this.mode = 'waiting'
+            
+            setTimeout(() => {
+                this.startLevel()
+            }, 1000)
         }
         this.userInput += inputChar
-        console.log(tempString);
+        console.log(this.currentLevel)
+    }
+}
+
+
+Game.prototype.showStatus = function (tempString) {
+    inputStatus.textContent = ''
+    this.answer.split('').forEach((item, index) => {
+        let circle = `<div class="circle"></div>`
+        inputStatus.innerHTML += circle
+        // if (index < tempString.length) {
+        //     circle.classList.add('correct')
+        // }
+    })
+    if(tempString == ''){
+        this.block.turnAllOff()
+    }
+
+    if (tempString == this.answer) {
+        // inputStatus.classList.add('correct')
+        console.log('ss')
+        setTimeout(() => {
+            this.block.turnAllOn()
+            blocks.playSet('correct')
+        }, 500)
+    }
+    if(this.answer.indexOf(tempString) != 0){
+        setTimeout(()=>{
+            this.block.turnAllOn()
+            blocks.playSet('wrong')
+        },500)
     }
 }
 
 let game = new Game()
 
-game.startGame('12333')
-
-// blocks.playSet('wrong')
-
-console.log(blocks);
+setTimeout(() =>{
+    game.startLevel()
+},1000)

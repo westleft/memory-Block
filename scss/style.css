@@ -19,12 +19,26 @@ html, body {
   width: 100%;
   background-color: #232526;
   color: #fff;
+  border: solid 5px rgba(255, 255, 255, 0.05);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+html:active, body:active {
+  -webkit-transition: 0s;
+  transition: 0s;
+  border: solid 2px rgba(255, 255, 255, 0.1);
 }
 
 .info {
   position: absolute;
   left: 40px;
   top: 40px;
+}
+
+.info .status {
+  margin-top: 10px;
+  color: #FF5353;
 }
 
 .blocks {
@@ -136,5 +150,23 @@ html, body {
   background-color: #FBE9B7;
   -webkit-box-shadow: 0px 0px 35px #FBE9B7;
           box-shadow: 0px 0px 35px #FBE9B7;
+}
+
+.inputStatus {
+  margin-top: 10px;
+}
+
+.inputStatus .circle {
+  height: 6px;
+  width: 6px;
+  display: inline-block;
+  opacity: 0.3;
+  margin: 5px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.inputStatus .circle.correct {
+  opacity: 1;
 }
 /*# sourceMappingURL=style.css.map */
