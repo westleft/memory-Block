@@ -2,6 +2,9 @@ $colorRed: #FF5353;
 $colorYellow: #FFC429;
 $colorBlue: #5980C1;
 $colorWhite: #FBE9B7;
+$colorGreen: #17A398;
+$colorGray: #BBBDC9;
+$colorLime: #C9F299;
 
 @mixin size($h,$w){
     height: $h;
@@ -91,6 +94,26 @@ html,body {
     }
     .block4 {
         @include blockColor($colorWhite);
+    }
+    .block5 {
+        display: none;
+        @include blockColor($colorGreen);
+    }
+    .block6 {
+        display: none;
+        @include blockColor($colorGray);
+    }
+    .block7 {
+        display: none;
+        @include blockColor(#C9F299);
+    }
+    .block8 {
+        display: none;
+        @include blockColor(#F3A953);
+    }
+    .block9 {
+        display: none;
+        @include blockColor(#EDE745);
     }
 }
 

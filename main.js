@@ -5,7 +5,12 @@ let blockData = [
     { selector: document.querySelector('.block1'), name: '1', pitch: '1' },
     { selector: document.querySelector('.block2'), name: '2', pitch: '2' },
     { selector: document.querySelector('.block3'), name: '3', pitch: '3' },
-    { selector: document.querySelector('.block4'), name: '4', pitch: '4' }
+    { selector: document.querySelector('.block4'), name: '4', pitch: '4' },
+    { selector: document.querySelector('.block5'), name: '5', pitch: '5' },
+    { selector: document.querySelector('.block6'), name: '6', pitch: '6' },
+    { selector: document.querySelector('.block7'), name: '7', pitch: '7' },
+    { selector: document.querySelector('.block8'), name: '8', pitch: '8' },
+    { selector: document.querySelector('.block9'), name: '9', pitch: '9' }
 ]
 
 let soundSetData = [
@@ -14,13 +19,20 @@ let soundSetData = [
 ]
 
 let levelDatas = [
-    '1234',
-    '13221',
-    '123433',
-    '1343214',
-    '1334233144',
-    '1312243421131',
-    '12213413441214311243'
+    '1',
+    '4',
+    '1',
+    '12',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1'
 ]
 
 
@@ -121,6 +133,16 @@ Game.prototype.startGame = function (answer) {
         }
 
     }, this.playInterval)
+    if(this.currentLevel >= 3){
+        document.querySelector('.block5').style.display = 'flex'
+        document.querySelector('.block6').style.display = 'flex'
+    }
+    if(this.currentLevel >= 6){
+        document.querySelector('.block7').style.display = 'flex'
+        document.querySelector('.block8').style.display = 'flex'
+        document.querySelector('.block9').style.display = 'flex'
+        console.log('df')
+    }
 
 }
 
@@ -138,7 +160,7 @@ Game.prototype.userSendInput = function (inputChar) {
         let tempString = this.userInput + inputChar
         this.playNote(inputChar)
         this.showStatus(tempString)
-        
+
         if (this.answer.indexOf(tempString) === 0) {
             if (this.answer === tempString) {
                 this.showMessage('Correct')
@@ -159,7 +181,6 @@ Game.prototype.userSendInput = function (inputChar) {
             }, 1000)
         }
         this.userInput += inputChar
-        console.log(this.currentLevel)
     }
 }
 
@@ -179,7 +200,6 @@ Game.prototype.showStatus = function (tempString) {
 
     if (tempString == this.answer) {
         // inputStatus.classList.add('correct')
-        console.log('ss')
         setTimeout(() => {
             this.block.turnAllOn()
             blocks.playSet('correct')
